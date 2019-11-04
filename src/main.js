@@ -1,9 +1,7 @@
 
 import './index.scss'
-import './index1.scss'
-import './b'
 
-import axios from 'axios'
+/* import axios from 'axios'
 console.log(process.env)
 if (process.env === 'DEV') {
   import('./mock/index')
@@ -14,7 +12,7 @@ if (process.env === 'DEV') {
   }).then(function(response) {
     console.log(response)
   })
-}
+} */
 
 var ster = 'dsfsdf'
 var a = 'dsfsdf'
