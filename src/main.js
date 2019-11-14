@@ -1,8 +1,8 @@
 
-import './index.scss'
-
+import './css/index.scss'
+console.log('123123', process.env)
 /* import axios from 'axios'
-console.log(process.env)
+
 if (process.env === 'DEV') {
   import('./mock/index')
 

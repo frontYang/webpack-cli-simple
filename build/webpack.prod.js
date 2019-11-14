@@ -28,7 +28,6 @@ module.exports = merge(common, {
       }
     }
   },
-
   module: {
     rules: [
       {
@@ -40,8 +39,8 @@ module.exports = merge(common, {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css'
+      filename: 'css/[name].[hash].css',
+      chunkFilename: 'css/[id].[hash].css'
     }),
     new OptimizeCSSPlugin({
       cssProcessorOptions: {

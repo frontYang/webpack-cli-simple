@@ -1,23 +1,15 @@
 // webpack公用打包配置
 const config = require('../config').common
-const path = require('path')
+const utils = require('./utils')
 const HtmlwebpackPlugin = require('html-webpack-plugin')
 const publicPath = config.publicPath || '/'
-const outputUrl = config.outputUrl || resolve('./dist')
-
-function resolve(dir) {
-  return path.join(__dirname, '..', dir)
-}
+const outputUrl = config.outputUrl || utils.resolve('./dist')
+const entryJs = utils.getEntry('./src/*.js')
 
 module.exports = {
-  entry: {
-    app: './src/main.js',
-    vendor: [
-      'lodash'
-    ]
-  },
+  entry: entryJs,
   output: {
-    filename: '[name].[hash].js',
+    filename: 'js/[name].[hash].js',
     path: outputUrl,
     publicPath: publicPath
   },
@@ -41,14 +33,18 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'file-loader',
         options: {
-          limit: 10000
+          limit: 10000,
+          outputPath: 'assets/',
+          publicPath: 'assets/'
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         options: {
-          limit: 10000
+          limit: 10000,
+          outputPath: 'assets/',
+          publicPath: 'assets/'
         }
       }
     ]
@@ -61,7 +57,7 @@ module.exports = {
       title: 'Production',
       inject: 'body',
       hash: false,
-      template: './src/index.html',
+      template: utils.resolve('/public/index.html'),
       filename: 'index.html'
     })
   ]
