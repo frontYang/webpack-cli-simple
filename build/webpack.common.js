@@ -1,18 +1,30 @@
-// webpack公用打包配置
-const config = require('../config').common
+/**
+ * webpack公用打包配置
+ */
+const merge = require('webpack-merge')
+const config = require('./config').common
 const utils = require('./utils')
-const HtmlwebpackPlugin = require('html-webpack-plugin')
 const publicPath = config.publicPath || '/'
-const outputUrl = config.outputUrl || utils.resolve('./dist')
 const entryJs = utils.getEntry('./src/*.js')
 
-module.exports = {
+module.exports = merge({
+  // 入口
   entry: entryJs,
+
+  // 输出
   output: {
-    filename: 'js/[name].[hash].js',
-    path: outputUrl,
+    path: utils.resolve('./dist'),
+    filename: 'js/[name].js',
     publicPath: publicPath
   },
+
+  // 配置模块如何解析
+  resolve: {
+    // 自动解析确定的扩展，(能够使用户在引入模块时不带扩展，默认值['.wasm', '.mjs', '.js', '.json'])
+    extensions: ['.tsx', '.ts', '.js']
+  },
+
+  // 模块配置
   module: {
     rules: [
       {
@@ -34,8 +46,8 @@ module.exports = {
         loader: 'file-loader',
         options: {
           limit: 10000,
-          outputPath: 'assets/',
-          publicPath: 'assets/'
+          outputPath: '/assets/',
+          publicPath: '/assets/'
         }
       },
       {
@@ -43,22 +55,10 @@ module.exports = {
         loader: 'file-loader',
         options: {
           limit: 10000,
-          outputPath: 'assets/',
-          publicPath: 'assets/'
+          outputPath: '/assets/',
+          publicPath: '/assets/'
         }
       }
     ]
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js']
-  },
-  plugins: [
-    new HtmlwebpackPlugin({
-      title: 'Production',
-      inject: 'body',
-      hash: false,
-      template: utils.resolve('/public/index.html'),
-      filename: 'index.html'
-    })
-  ]
-}
+  }
+}, config)

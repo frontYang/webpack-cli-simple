@@ -2,11 +2,9 @@
 import './css/index.scss'
 import './js/a'
 
-// console.log('123123', process.env)
 import axios from 'axios'
 
 if (process.env === 'development') {
-  console.log(process.env === 'development')
   import('./mock/index')
 
   axios({
