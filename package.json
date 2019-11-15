@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config ./build/webpack.prod.js",
-    "build:serve": "cross-env NODE_ENV=production node ./build/server.js"
+    "build:serve": "node ./build/server.js"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
