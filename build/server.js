@@ -7,6 +7,6 @@ const staticPath = utils.resolve('dist')
 
 app.use(koa_static(staticPath))
 
-app.listen(3000, () => {
-  console.log(`Server is started at http://localhost:3000`)
+app.listen(3002, () => {
+  console.log(`Server is started at http://localhost:3002`)
 })

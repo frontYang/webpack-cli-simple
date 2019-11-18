@@ -1,28 +1,42 @@
-
 import './css/index.scss'
-import './js/a'
+import './js/index.js'
 
-// console.log('123123', process.env)
 import axios from 'axios'
 
-if (process.env === 'development') {
-  console.log(process.env === 'development')
-  import('./mock/index')
+/*
+// webpack-merge 合并与Object.assigin的差别：
+import webpackMerge from 'webpack-merge'
 
-  axios({
-    method: 'get',
-    url: '/api/test'
-  }).then(function(response) {
-    console.log(response)
-  })
+const obj1 = {
+  x: [{
+    a: 1,
+    b: 1
+  }]
 }
 
-var ster = 'dsfsdf'
-var a = 'dsfsdf'
-var b = 'sdfsd'
-console.log(a, ster, b)
+const obj2 = {
+  x: [{
+    a: 2,
+    b: 2,
+    c: 2
+  }]
+}
+const obj3 = webpackMerge(obj1, obj2)
+console.log('webpackMerge', obj3)
 
-const arr1 = [2, 222]
-const arr2 = [3, 33, 2]
+const obj4 = Object.assign(obj1, obj2)
+console.log('Object.assign', obj4) */
 
-console.log([...arr1, ...arr2])
+/* axios.get('/mock/5d78af02fbadfc5fb86af526/example/mock').then(data => {
+  console.log(data)
+}) */
+
+axios.get('/api/mock').then(data => {
+  console.log(data)
+})
+
+console.log('main')
+
+// console.log(aaa)
+console.log(111)
+

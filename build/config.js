@@ -1,35 +1,48 @@
 // 基本配置项
-const utils = require('./utils')
+// const utils = require('./utils')
 
 module.exports = {
   // 公用
   common: {
-    output: {
+    /* output: {
       path: utils.resolve('dist'),
       publicPath: '/'
-    }
+    } */
   },
 
   // 开发环境
   dev: {
     devServer: {
       port: 8081,
-      contentBase: utils.resolve('dist'),
+
+      /* proxy: {
+        '/mock': 'http://192.168.3.24:7300'
+      } */
+
+      /* // 代理
       proxy: {
-        /* '/api': {
-          target: 'http://localhost:8081',
+        // http://localhost:8081/api/ => http://192.168.3.24:7300/mock/5d78af02fbadfc5fb86af526/example/
+        '/api': {
+          target: 'http://192.168.3.24:7300/mock/5d78af02fbadfc5fb86af526/example'
+        }
+      } */
+
+      proxy: {
+        // http://localhost:8081/api/ => http://192.168.3.24:7300/mock/5d78af02fbadfc5fb86af526/example/
+        '/api': {
+          target: 'http://192.168.3.24:7300',
           pathRewrite: {
-            '^/api': ''
+            '^/api': '/mock/5d78af02fbadfc5fb86af526/example'
           }
-        } */
+        }
       }
     }
   },
 
   // 生产环境
   prod: {
-    output: {
+    /* output: {
       path: utils.resolve('dist')
-    }
+    } */
   }
 }

@@ -1,5 +1,6 @@
 // webpack生产环境打包配置
 const merge = require('webpack-merge')
+const webpack = require('webpack')
 const common = require('./webpack.common')
 const utils = require('./utils')
 const config = require('./config').prod
@@ -8,7 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlwebpackPlugin = require('html-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = merge(common, {
   mode: 'production',
@@ -24,53 +25,18 @@ module.exports = merge(common, {
   // 优化
   optimization: {
     splitChunks: {
-      chunks: 'all', // initial、async和all
-      minSize: 30000, // 形成一个新代码块最小的体积
-      maxAsyncRequests: 5, // 按需加载时候最大的并行请求数
-      maxInitialRequests: 3, // 最大初始化请求数
-      automaticNameDelimiter: '~', // 打包分割符
-      name: true,
       cacheGroups: {
-        /* vendors: { // 项目基本框架等
-          chunks: 'all',
-          test: /(babel-polyfill)/,
-          priority: 100, // 优先级
-          name: 'vendors'
-        }, */
-        'async-commons': { // 异步加载公共包、组件等
-          chunks: 'async',
-          minChunks: 2,
-          priority: 90, // 优先级
-          name: 'async-commons'
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
         },
-        commons: { // 其他同步加载公共包
-          chunks: 'all',
+        default: {
           minChunks: 2,
-          priority: 80, // 优先级
-          name: 'commons'
+          priority: -20,
+          reuseExistingChunk: true
         }
       }
     }
-
-    // // 分块
-    // splitChunks: {
-    //   // 可以继承和覆盖splitChunks.*;中的任何选项
-    //   cacheGroups: {
-    //     default: false, // 禁用默认缓存组
-    //     vendors: false,
-    //     vendor: {
-    //       test: /[\\/]node_modules[\\/]/,
-    //       name: 'vendors',
-    //       chunks: 'all'
-    //     },
-    //     styles: {
-    //       name: 'styles',
-    //       test: /\.css$/,
-    //       chunks: 'all',
-    //       enforce: true
-    //     }
-    //   }
-    // }
   },
 
   // 模块配置
@@ -86,6 +52,9 @@ module.exports = merge(common, {
   plugins: [
     // 清除打包目录
     new CleanWebpackPlugin(),
+
+    // 会根据模块的相对路径生成一个四位数的hash作为模块id, 建议用于生产环境。
+    new webpack.HashedModuleIdsPlugin(),
 
     // 提取css文件
     // DOC: https://github.com/webpack-contrib/mini-css-extract-plugin
@@ -108,11 +77,7 @@ module.exports = merge(common, {
       sourceMap: true
     }),
 
-    // 生成hmtl
-    // DOC: https://github.com/jantimon/html-webpack-plugin
     new HtmlwebpackPlugin({
-      title: 'Production',
-      hash: true,
       template: utils.resolve('public/index.html'),
       filename: 'index.html',
       inject: true,
@@ -121,9 +86,9 @@ module.exports = merge(common, {
         collapseWhitespace: true, // 删除空格
         removeAttributeQuotes: true // 移除属性的引号
       }
-    }),
+    })
 
     // 可视化性能面板
-    new BundleAnalyzerPlugin()
+    // new BundleAnalyzerPlugin()
   ]
 }, config)

@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{42:function(e,i,a){a(92).mock("/api/test","get",{"list|1-3":[{"sid|+1":1,"userId|5":"","sex|1-2":!0,"city|2-4":{11e4:"北京市",12e4:"天津市",13e4:"河北省",14e4:"山西省"},"grade|1":["1年级","2年级","3年级"],guid:"@guid",id:"@id",title:"@title()",paragraph:"@cparagraph",image:"@image('200x100', '#4A7BF7', 'Hello')",address:"@county(true)",date:'@date("yyyy-MM-dd")',time:'@time("HH:mm:ss")',url:"@url",email:"@email",ip:"@ip",regexp:/[a-z][A-Z][0-9]/}]})}}]);
-//# sourceMappingURL=1.a6a7eca728a3c30e07b2.js.map

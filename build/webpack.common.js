@@ -5,11 +5,12 @@ const merge = require('webpack-merge')
 const config = require('./config').common
 const utils = require('./utils')
 const publicPath = config.publicPath || '/'
-const entryJs = utils.getEntry('./src/*.js')
 
 module.exports = merge({
   // 入口
-  entry: entryJs,
+  entry: {
+    app: utils.resolve('src/main.js')
+  },
 
   // 输出
   output: {
