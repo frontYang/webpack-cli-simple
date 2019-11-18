@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlwebpackPlugin = require('html-webpack-plugin')
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = merge(common, {
   mode: 'production',
@@ -25,13 +25,22 @@ module.exports = merge(common, {
   // 优化
   optimization: {
     splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10
+
         },
         default: {
-          minChunks: 2,
+          minChunks: 12,
           priority: -20,
           reuseExistingChunk: true
         }
@@ -86,9 +95,9 @@ module.exports = merge(common, {
         collapseWhitespace: true, // 删除空格
         removeAttributeQuotes: true // 移除属性的引号
       }
-    })
+    }),
 
     // 可视化性能面板
-    // new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin()
   ]
 }, config)

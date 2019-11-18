@@ -2,6 +2,10 @@ import './css/index.scss'
 import './js/index.js'
 
 import axios from 'axios'
+import $ from 'jquery'
+import vue from 'vue'
+console.log(vue)
+console.log($)
 
 /*
 // webpack-merge 合并与Object.assigin的差别：
